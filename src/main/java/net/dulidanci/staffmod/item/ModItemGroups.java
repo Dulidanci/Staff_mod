@@ -37,6 +37,7 @@ public class ModItemGroups {
 
                        entries.add(ModItems.GLOWSTONE_STAFF);
                        entries.add(ModItems.BONE_BLOCK_STAFF);
+                       entries.add(ModItems.BEEHIVE_STAFF);
                        entries.add(ModItems.LAPIS_LAZULI_STAFF);
 
                        entries.add(ModBlocks.BLUEPRINT_PLANKS);

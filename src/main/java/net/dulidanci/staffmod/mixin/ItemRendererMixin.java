@@ -206,6 +206,16 @@ public abstract class ItemRendererMixin {
     }
 
     @ModifyVariable(method = "renderItem", at = @At(value = "HEAD"), argsOnly = true)
+    public BakedModel useBeehiveStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
+                                               MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if (stack.isOf(ModItems.BEEHIVE_STAFF) && renderMode != ModelTransformationMode.GUI) {
+            return ((ItemRendererAccessor) this).mccourse$getModels().getModelManager().getModel(new ModelIdentifier(
+                    StaffMod.MOD_ID, "beehive_staff_3d", "inventory"));
+        }
+        return value;
+    }
+
+    @ModifyVariable(method = "renderItem", at = @At(value = "HEAD"), argsOnly = true)
     public BakedModel useLapisLazuliStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
                                                MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         if (stack.isOf(ModItems.LAPIS_LAZULI_STAFF) && renderMode != ModelTransformationMode.GUI) {

@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod;
 
 import net.dulidanci.staffmod.block.ModBlocks;
+import net.dulidanci.staffmod.entity.ModEntities;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
 import net.dulidanci.staffmod.item.ModItemGroups;
 import net.dulidanci.staffmod.item.ModItems;
@@ -22,6 +23,7 @@ public class StaffMod implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModEntities.registerModEntities();
 
 		PlayerItemTracker.register();
 
