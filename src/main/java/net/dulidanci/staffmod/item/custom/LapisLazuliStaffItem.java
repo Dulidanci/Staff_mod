@@ -10,6 +10,8 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+
 public class LapisLazuliStaffItem extends StaffItem{
     public LapisLazuliStaffItem(Settings settings, int level) {
         super(settings, level);
@@ -34,11 +36,16 @@ public class LapisLazuliStaffItem extends StaffItem{
         if (world.isClient()) {
             return;
         }
-        if (!player.hasStatusEffect(StatusEffects.LEVITATION)) {
-            if (world.getBlockState(position.add(0, -1, 0)) != Blocks.AIR.getDefaultState() ||
-                    world.getBlockState(position.add(0, -2, 0)) != Blocks.AIR.getDefaultState()) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 5, 2, true, false));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 40, 0, true, false));
+        ArrayList<BlockPos> posList = new ArrayList<>();
+        for (int i = -2; i < 0; i++) {
+                    posList.add(position.add(0, i, 0));
+        }
+        for (BlockPos current : posList) {
+            if (!player.hasStatusEffect(StatusEffects.LEVITATION)) {
+                if (world.getBlockState(current) != Blocks.AIR.getDefaultState()) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 5, 2, true, false));
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 40, 0, true, false));
+                }
             }
         }
     }
