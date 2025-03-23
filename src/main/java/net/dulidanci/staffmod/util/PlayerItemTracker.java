@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod.util;
 
 import net.dulidanci.staffmod.item.ModItems;
+import net.dulidanci.staffmod.item.custom.LapisLazuliStaffItem;
 import net.dulidanci.staffmod.item.custom.PlanksStaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.item.Item;
@@ -22,8 +23,9 @@ public class PlayerItemTracker {
             ModItems.CHERRY_PLANKS_STAFF,
             ModItems.BAMBOO_PLANKS_STAFF,
             ModItems.CRIMSON_PLANKS_STAFF,
-            ModItems.WARPED_PLANKS_STAFF
-    };  // there are 11 planks in total
+            ModItems.WARPED_PLANKS_STAFF,
+            ModItems.LAPIS_LAZULI_STAFF
+    };
     private static final Map<UUID, Boolean[]> table = new HashMap<>();
 
     public static void register() {
@@ -62,12 +64,16 @@ public class PlayerItemTracker {
     private static void onItemEquipped(ServerPlayerEntity player, int whichStaff) {
         if (whichStaff < 11) {
             PlanksStaffItem.generatePreview(player);
+        } else {
+            LapisLazuliStaffItem.levitating(player);
         }
     }
 
     private static void whileHoldingItem(ServerPlayerEntity player, int whichStaff) {
         if (whichStaff < 11) {
             PlanksStaffItem.generatePreview(player);
+        } else {
+            LapisLazuliStaffItem.levitating(player);
         }
     }
 
