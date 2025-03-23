@@ -9,6 +9,9 @@ import net.dulidanci.staffmod.util.PlayerItemTracker;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.util.ActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,11 @@ public class StaffMod implements ModInitializer {
 
 				if (player.getMainHandStack().isOf(ModItems.MAGMA_STAFF)) {
 					entity.setOnFireFor(8);
+				}
+				if (player.getMainHandStack().isOf(ModItems.LAPIS_LAZULI_STAFF)) {
+					if (entity instanceof LivingEntity livingEntity) {
+						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
+					}
 				}
 			}
 			return ActionResult.PASS; // Or CONSUME to cancel further processing
