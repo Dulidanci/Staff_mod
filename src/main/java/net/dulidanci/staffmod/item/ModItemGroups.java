@@ -39,6 +39,7 @@ public class ModItemGroups {
                        entries.add(ModItems.BONE_BLOCK_STAFF);
                        entries.add(ModItems.BEEHIVE_STAFF);
                        entries.add(ModItems.LAPIS_LAZULI_STAFF);
+                       entries.add(ModItems.BELL_STAFF);
 
                        entries.add(ModBlocks.BLUEPRINT_PLANKS);
                        entries.add(ModBlocks.FADING_LIGHT_BLOCK);

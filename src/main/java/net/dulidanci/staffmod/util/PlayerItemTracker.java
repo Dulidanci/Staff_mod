@@ -13,18 +13,18 @@ import java.util.UUID;
 
 public class PlayerItemTracker {
     private static final Item[] ITEMS_TO_TRACK = {
-            ModItems.OAK_PLANKS_STAFF,
-            ModItems.SPRUCE_PLANKS_STAFF,
-            ModItems.BIRCH_PLANKS_STAFF,
-            ModItems.JUNGLE_PLANKS_STAFF,
-            ModItems.ACACIA_PLANKS_STAFF,
-            ModItems.DARK_OAK_PLANKS_STAFF,
-            ModItems.MANGROVE_PLANKS_STAFF,
-            ModItems.CHERRY_PLANKS_STAFF,
-            ModItems.BAMBOO_PLANKS_STAFF,
-            ModItems.CRIMSON_PLANKS_STAFF,
-            ModItems.WARPED_PLANKS_STAFF,
-            ModItems.LAPIS_LAZULI_STAFF
+            ModItems.OAK_PLANKS_STAFF,          // 0
+            ModItems.SPRUCE_PLANKS_STAFF,       // 1
+            ModItems.BIRCH_PLANKS_STAFF,        // 2
+            ModItems.JUNGLE_PLANKS_STAFF,       // 3
+            ModItems.ACACIA_PLANKS_STAFF,       // 4
+            ModItems.DARK_OAK_PLANKS_STAFF,     // 5
+            ModItems.MANGROVE_PLANKS_STAFF,     // 6
+            ModItems.CHERRY_PLANKS_STAFF,       // 7
+            ModItems.BAMBOO_PLANKS_STAFF,       // 8
+            ModItems.CRIMSON_PLANKS_STAFF,      // 9
+            ModItems.WARPED_PLANKS_STAFF,       // 10
+            ModItems.LAPIS_LAZULI_STAFF         // 11
     };
     private static final Map<UUID, Boolean[]> table = new HashMap<>();
 

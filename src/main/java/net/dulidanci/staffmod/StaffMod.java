@@ -5,6 +5,8 @@ import net.dulidanci.staffmod.entity.ModEntities;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
 import net.dulidanci.staffmod.item.ModItemGroups;
 import net.dulidanci.staffmod.item.ModItems;
+import net.dulidanci.staffmod.item.custom.BellStaffItem;
+import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.PlayerItemTracker;
 import net.fabricmc.api.ModInitializer;
 
@@ -12,6 +14,7 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.ActionResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +32,8 @@ public class StaffMod implements ModInitializer {
 		ModEntities.registerModEntities();
 
 		PlayerItemTracker.register();
+		EntityTimerManager.register();
 
-		// Event register for attacking
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			// Your custom logic here
 			if (!world.isClient) {
@@ -42,6 +45,11 @@ public class StaffMod implements ModInitializer {
 				if (player.getMainHandStack().isOf(ModItems.LAPIS_LAZULI_STAFF)) {
 					if (entity instanceof LivingEntity livingEntity) {
 						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
+					}
+				}
+				if (player.getMainHandStack().isOf(ModItems.BELL_STAFF)) {
+					if (entity instanceof MobEntity mob) {
+						BellStaffItem.onHit(mob, world);
 					}
 				}
 			}
