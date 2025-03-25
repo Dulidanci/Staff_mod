@@ -1,5 +1,7 @@
 package net.dulidanci.staffmod.item.custom;
 
+import net.dulidanci.staffmod.util.EntityTimerManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.item.ItemStack;
@@ -23,7 +25,15 @@ public class MagmaStaffItem extends StaffItem{
         FireballEntity fireball = new FireballEntity(world, player, facing.x, facing.y, facing.z, 1);
         fireball.setPos(fireball.getX(), fireball.getY() + 1, fireball.getZ());
         world.spawnEntity(fireball);
+        EntityTimerManager.startEntityTimer(fireball, 1200, 1);
+
 
         return TypedActionResult.success(player.getStackInHand(hand));
+    }
+
+    public static void removeFireball(FireballEntity fireball) {
+        if (fireball.isAlive()) {
+            fireball.remove(Entity.RemovalReason.DISCARDED);
+        }
     }
 }

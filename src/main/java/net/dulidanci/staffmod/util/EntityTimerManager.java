@@ -1,9 +1,11 @@
 package net.dulidanci.staffmod.util;
 
 import net.dulidanci.staffmod.StaffMod;
+import net.dulidanci.staffmod.item.custom.MagmaStaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.server.MinecraftServer;
 import oshi.util.tuples.Pair;
 
@@ -15,8 +17,10 @@ import java.util.UUID;
 public class EntityTimerManager {
     private static final Map<UUID, Pair<Integer, Integer>> entityTimers = new HashMap<>();
     /**
-     * UUID - mob;
-     * First Integer - Ticks left;
+     * UUID - Ticking entity's Id
+     * <p>
+     * First Integer - Ticks left
+     * <p>
      * Second Integer - Type of action to be executed
      */
 
@@ -49,13 +53,24 @@ public class EntityTimerManager {
     }
 
     /**
-     * @param type 0
-     * @return NoAI turning off; called from BellStaffItem
+     * @param type Stores which action has to be executed when the timer hits zero
+     * @value 0
+     * <p>
+     *     NoAI turning off; called from BellStaffItem
+     * </p>
+     * @value 1
+     * <p>
+     *     Removing fireballs; called from MagmaStaffItem
+     * </p>
      */
     private static void executeTimedAction(Entity entity, int type) {
         if (type == 0) {
             if (entity instanceof LivingEntity livingEntity) {
                 MobUtilities.setNoAI(livingEntity, false);
+            }
+        } else if (type == 1) {
+            if (entity instanceof FireballEntity fireball) {
+                MagmaStaffItem.removeFireball(fireball);
             }
         }
     }
