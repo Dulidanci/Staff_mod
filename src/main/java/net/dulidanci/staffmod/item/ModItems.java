@@ -75,7 +75,10 @@ public class ModItems {
             new BeehiveStaffItem(new FabricItemSettings().maxCount(1), 0));
 
     public static final Item BELL_STAFF = registerItem("bell_staff",
-            new BellStaffItem(new FabricItemSettings().maxCount(1).maxDamage(6), 0));
+            new BellStaffItem(new FabricItemSettings().maxCount(1), 0));
+
+    public static final Item TARGET_STAFF = registerItem("target_staff",
+            new TargetStaffItem(new FabricItemSettings().maxCount(1), 0));
 
     private static Item registerItem(String name, Item item) {
         return Registry.register(Registries.ITEM, new Identifier(StaffMod.MOD_ID, name), item);

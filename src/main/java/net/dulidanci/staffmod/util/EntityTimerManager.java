@@ -2,6 +2,7 @@ package net.dulidanci.staffmod.util;
 
 import net.dulidanci.staffmod.StaffMod;
 import net.dulidanci.staffmod.item.custom.MagmaStaffItem;
+import net.dulidanci.staffmod.item.custom.TargetStaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -15,13 +16,17 @@ import java.util.Map;
 import java.util.UUID;
 
 public class EntityTimerManager {
-    private static final Map<UUID, Pair<Integer, Integer>> entityTimers = new HashMap<>();
+    private static final Map<Pair<UUID, Integer>, Integer> entityTimers = new HashMap<>();
     /**
-     * UUID - Ticking entity's Id
+     * KEY:
      * <p>
-     * First Integer - Ticks left
+     * UUID - Ticking entity's ID
      * <p>
-     * Second Integer - Type of action to be executed
+     * Integer - Type of action to be executed
+     * <p>
+     * VALUE:
+     * <p>
+     * Integer - Ticks remaining
      */
 
     public static void register() {
@@ -30,37 +35,41 @@ public class EntityTimerManager {
     }
 
     private static void onServerTick(MinecraftServer server) {
-        Iterator<Map.Entry<UUID, Pair<Integer, Integer>>> iterator = entityTimers.entrySet().iterator();
+        Iterator<Map.Entry<Pair<UUID, Integer>, Integer>> iterator = entityTimers.entrySet().iterator();
         while (iterator.hasNext()) {
-            Map.Entry<UUID, Pair<Integer, Integer>> entry = iterator.next();
-            int ticksLeft = entry.getValue().getA() - 1;
+            Map.Entry<Pair<UUID, Integer>, Integer> entry = iterator.next();
+            int ticksLeft = entry.getValue() - 1;
 
             if (ticksLeft <= 0) {
-                UUID entityId = entry.getKey();
+                UUID entityId = entry.getKey().getA();
                 Entity entity = findEntityByUUID(server, entityId);
                 if (entity != null) {
-                    executeTimedAction(entity, entry.getValue().getB());
+                    executeTimedAction(entity, entry.getKey().getB());
                 }
                 iterator.remove();
             } else {
-                entry.setValue(new Pair<>(ticksLeft, entry.getValue().getB()));
+                entry.setValue(ticksLeft);
             }
         }
     }
 
     public static void startEntityTimer(Entity entity, int ticks, int type) {
-        entityTimers.put(entity.getUuid(), new Pair<>(ticks, type));
+        entityTimers.put(new Pair<>(entity.getUuid(), type), ticks);
     }
 
     /**
      * @param type Stores which action has to be executed when the timer hits zero
-     * @value 0
+     * @value 0 - NoAI turning off
      * <p>
-     *     NoAI turning off; called from BellStaffItem
+     *     Called from BellStaffItem
      * </p>
-     * @value 1
+     * @value 1 - Removing fireballs
      * <p>
-     *     Removing fireballs; called from MagmaStaffItem
+     *     Called from MagmaStaffItem
+     * </p>
+     * @value 2 - Remove glowing mob from team
+     * <p>
+     *     Called from TargetStaffItem
      * </p>
      */
     private static void executeTimedAction(Entity entity, int type) {
@@ -71,6 +80,10 @@ public class EntityTimerManager {
         } else if (type == 1) {
             if (entity instanceof FireballEntity fireball) {
                 MagmaStaffItem.removeFireball(fireball);
+            }
+        } else if (type == 2) {
+            if (entity instanceof LivingEntity living) {
+                TargetStaffItem.resetTeam(living, living.getWorld());
             }
         }
     }

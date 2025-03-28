@@ -234,4 +234,14 @@ public abstract class ItemRendererMixin {
         }
         return value;
     }
+
+    @ModifyVariable(method = "renderItem", at = @At(value = "HEAD"), argsOnly = true)
+    public BakedModel useTargetStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
+                                        MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if (stack.isOf(ModItems.TARGET_STAFF) && renderMode != ModelTransformationMode.GUI) {
+            return ((ItemRendererAccessor) this).mccourse$getModels().getModelManager().getModel(new ModelIdentifier(
+                    StaffMod.MOD_ID, "target_staff_3d", "inventory"));
+        }
+        return value;
+    }
 }

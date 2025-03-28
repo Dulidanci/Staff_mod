@@ -174,4 +174,11 @@ public abstract class ModelLoaderMixin {
                                     Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
         this.addModel(new ModelIdentifier(StaffMod.MOD_ID, "bell_staff_3d", "inventory"));
     }
+
+    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/model/ModelLoader;addModel(Lnet/minecraft/client/util/ModelIdentifier;)V",
+            ordinal = 3, shift = At.Shift.AFTER))
+    public void addTargetStaff(BlockColors blockColors, Profiler profiler, Map<Identifier, JsonUnbakedModel> jsonUnbakedModels,
+                             Map<Identifier, List<ModelLoader.SourceTrackedData>> blockStates, CallbackInfo ci) {
+        this.addModel(new ModelIdentifier(StaffMod.MOD_ID, "target_staff_3d", "inventory"));
+    }
 }
