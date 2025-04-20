@@ -1,12 +1,15 @@
 package net.dulidanci.staffmod;
 
 import net.dulidanci.staffmod.block.ModBlocks;
+import net.dulidanci.staffmod.enchantments.ModEnchantments;
 import net.dulidanci.staffmod.entity.ModEntities;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
 import net.dulidanci.staffmod.item.ModItemGroups;
 import net.dulidanci.staffmod.item.ModItems;
 import net.dulidanci.staffmod.item.custom.BellStaffItem;
+import net.dulidanci.staffmod.item.custom.LapisLazuliStaffItem;
 import net.dulidanci.staffmod.util.EntityTimerManager;
+import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.PlayerItemTracker;
 import net.fabricmc.api.ModInitializer;
 
@@ -31,9 +34,11 @@ public class StaffMod implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModEntities.registerModEntities();
 		ModItemGroups.registerItemGroups();
+		ModEnchantments.registerModEnchantments();
 
 		PlayerItemTracker.register();
 		EntityTimerManager.register();
+		ManaSupplier.register();
 
 		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
 			// Your custom logic here
@@ -45,16 +50,20 @@ public class StaffMod implements ModInitializer {
 				}
 				if (player.getMainHandStack().isOf(ModItems.LAPIS_LAZULI_STAFF)) {
 					if (entity instanceof LivingEntity livingEntity) {
-						livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
+						if (ManaSupplier.manaCheck(player, LapisLazuliStaffItem.manaOnHit)) {
+							livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 600, 0));
+						}
 					}
 				}
 				if (player.getMainHandStack().isOf(ModItems.BELL_STAFF)) {
 					if (entity instanceof MobEntity mob) {
-						BellStaffItem.onHit(mob, world);
+						BellStaffItem.onHit(mob, world, player);
 					}
 				}
 			}
 			return ActionResult.PASS; // Or CONSUME to cancel further processing
 		});
+
+
 	}
 }

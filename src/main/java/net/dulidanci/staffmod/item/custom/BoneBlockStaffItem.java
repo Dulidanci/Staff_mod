@@ -1,5 +1,6 @@
 package net.dulidanci.staffmod.item.custom;
 
+import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.item.ItemUsageContext;
@@ -11,8 +12,10 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
 public class BoneBlockStaffItem extends StaffItem{
-    public BoneBlockStaffItem(Settings settings, int level) {
-        super(settings, level);
+    public static final int mana = 1;
+
+    public BoneBlockStaffItem(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -22,20 +25,19 @@ public class BoneBlockStaffItem extends StaffItem{
             return ActionResult.PASS;
         }
 
-        BlockPos positionClicked = context.getBlockPos();
-        BlockState targetBlockState = world.getBlockState(positionClicked);
+        if (ManaSupplier.manaCheck(context.getPlayer(), mana)) {
+            BlockPos positionClicked = context.getBlockPos();
+            BlockState targetBlockState = world.getBlockState(positionClicked);
 
-        if (targetBlockState.getBlock() instanceof Fertilizable fertilizable) {
-            if (fertilizable.isFertilizable(world, positionClicked, targetBlockState)) {
-                fertilizable.grow((ServerWorld) world, Random.create(), positionClicked, targetBlockState);
-                ((ServerWorld) world).spawnParticles(ParticleTypes.HAPPY_VILLAGER, positionClicked.getX() + 0.5, positionClicked.getY() + 0.5,
-                        positionClicked.getZ() + 0.5, 4, 0.5, 0.5, 0.5, 0.1);
-                return ActionResult.SUCCESS;
+            if (targetBlockState.getBlock() instanceof Fertilizable fertilizable) {
+                if (fertilizable.isFertilizable(world, positionClicked, targetBlockState)) {
+                    fertilizable.grow((ServerWorld) world, Random.create(), positionClicked, targetBlockState);
+                    ((ServerWorld) world).spawnParticles(ParticleTypes.HAPPY_VILLAGER, positionClicked.getX() + 0.5, positionClicked.getY() + 0.5,
+                            positionClicked.getZ() + 0.5, 4, 0.5, 0.5, 0.5, 0.1);
+                    return ActionResult.SUCCESS;
+                }
             }
         }
         return ActionResult.FAIL;
     }
 }
-
-// world.addParticle(ParticleTypes.HAPPY_VILLAGER, positionClicked.getX(), positionClicked.getY(),
-//                            positionClicked.getZ(), 0, 0.1, 0);

@@ -4,7 +4,7 @@
 	"textures": {
 		"1": "staffmod:item/regular_staff_3d",
 		"2": "minecraft:block/spruce_planks",
-		"particle": "staffmod:itme/regular_staff_3d"
+		"particle": "staffmod:item/regular_staff_3d"
 	},
 	"elements": [
 		{
@@ -92,6 +92,29 @@
 			}
 		}
 	],
+	"gui_light": "front",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [68, 0, 0],
+			"translation": [1, -1, 0.5],
+			"scale": [1.75, 1.75, 1.75]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [68, 0, 0],
+			"translation": [-1, -1, 0.5],
+			"scale": [1.75, 1.75, 1.75]
+		},
+		"ground": {
+			"rotation": [0, 0, 90],
+			"translation": [3.5, 1, 1]
+		},
+		"gui": {
+			"translation": [0, -5, 0]
+		},
+		"fixed": {
+			"translation": [0, -5.25, 0]
+		}
+	},
 	"groups": [
 		{
 			"name": "staff",

@@ -1,5 +1,6 @@
 package net.dulidanci.staffmod.item.custom;
 
+import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -13,8 +14,11 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 
 public class LapisLazuliStaffItem extends StaffItem{
-    public LapisLazuliStaffItem(Settings settings, int level) {
-        super(settings, level);
+    public static final int mana = 3;
+    public static final int manaOnHit = 2;
+
+    public LapisLazuliStaffItem(Settings settings) {
+        super(settings);
     }
 
     @Override
@@ -23,11 +27,13 @@ public class LapisLazuliStaffItem extends StaffItem{
             return TypedActionResult.pass(player.getStackInHand(hand));
         }
 
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 60, 7, false, true));
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 200, 0, false, true));
+        if (ManaSupplier.manaCheck(player, mana)) {
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.LEVITATION, 60, 7, false, true));
+            player.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 200, 0, false, true));
 
-
-        return TypedActionResult.success(player.getStackInHand(hand));
+            return TypedActionResult.success(player.getStackInHand(hand));
+        }
+        return TypedActionResult.fail(player.getStackInHand(hand));
     }
 
     public static void levitating(PlayerEntity player) {

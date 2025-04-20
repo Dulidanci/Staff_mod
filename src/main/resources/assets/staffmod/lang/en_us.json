@@ -28,5 +28,7 @@
   "block.staffmod.blueprint_planks": "Blueprint Planks",
   "block.staffmod.fading_light_block": "Fading Light Block",
 
+  "enchantment.staffmod.magical": "Magical",
+
   "itemgroup.staff": "Staffs"
 }

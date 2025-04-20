@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.block.ModBlocks;
+import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,14 +21,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class PlanksStaffItem extends StaffItem{
+    public static final int mana = 2;
     private static BlockPos previousPos;
     private static Direction previousDir;
     private static Direction previousMode;
     private static final Set<BlockPos> previousPlaces = new HashSet<>();
     private final Block blockType;
 
-    public PlanksStaffItem(Settings settings, int level, Block block) {
-        super(settings, level);
+    public PlanksStaffItem(Settings settings, Block block) {
+        super(settings);
         this.blockType = block;
     }
 
@@ -139,20 +141,26 @@ public class PlanksStaffItem extends StaffItem{
         if (world.isClient) {
             return TypedActionResult.pass(player.getStackInHand(hand));
         }
-        int blocksNeeded = previousPlaces.size();
-        if (hasEnoughItems(player, this.blockType.asItem(), blocksNeeded)) {
-            for (BlockPos setToPlanks : previousPlaces) {
-                world.setBlockState(setToPlanks, this.blockType.getDefaultState());
+
+        if (ManaSupplier.manaCheck(player, mana)) {
+            int blocksNeeded = previousPlaces.size();
+            if (hasEnoughItems(player, this.blockType.asItem(), blocksNeeded)) {
+                for (BlockPos setToPlanks : previousPlaces) {
+                    world.setBlockState(setToPlanks, this.blockType.getDefaultState());
+                }
+                previousPlaces.clear();
+                removeItems(player, this.blockType.asItem(), blocksNeeded);
+                return TypedActionResult.success(player.getStackInHand(hand));
             }
-            previousPlaces.clear();
-            removeItems(player, this.blockType.asItem(), blocksNeeded);
-            return TypedActionResult.success(player.getStackInHand(hand));
+            player.sendMessage(Text.literal("Not enough planks to build!"));
         }
-        player.sendMessage(Text.literal("Not enough planks to build!"));
         return TypedActionResult.fail(player.getStackInHand(hand));
     }
 
     private boolean hasEnoughItems(PlayerEntity player, Item item, int requiredAmount) {
+        if (player.isCreative()) {
+            return true;
+        }
         int count = 0;
         for (int i = 0; i < player.getInventory().size(); i++) {
             ItemStack stack = player.getInventory().getStack(i);
@@ -167,6 +175,9 @@ public class PlanksStaffItem extends StaffItem{
     }
 
     public void removeItems(PlayerEntity player, Item item, int amountToRemove) {
+        if (player.isCreative()) {
+            return;
+        }
         for (int i = 0; i < player.getInventory().size(); i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.getItem() == item) {

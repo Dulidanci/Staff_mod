@@ -1,5 +1,6 @@
 package net.dulidanci.staffmod.item.custom;
 
+import net.dulidanci.staffmod.util.ManaSupplier;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,18 +14,22 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class TntStaffItem extends StaffItem{
-    public TntStaffItem(Settings settings, int level) {
-        super(settings, level);
+    public int mana = 1;
+
+    public TntStaffItem(Settings settings) {
+        super(settings);
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
-        if (world.isClient) {
-            return TypedActionResult.pass(player.getStackInHand(hand));
+        if (!world.isClient) {
+            if (ManaSupplier.manaCheck(player, mana)) {
+                ServerWorld serverWorld = (ServerWorld) world;
+                spawnTnt(serverWorld, player);
+                return TypedActionResult.success(player.getStackInHand(hand));
+            }
         }
-        ServerWorld serverWorld = (ServerWorld) world;
-        spawnTnt(serverWorld, player);
-        return TypedActionResult.success(player.getStackInHand(hand));
+        return TypedActionResult.pass(player.getStackInHand(hand));
     }
 
     public void spawnTnt(ServerWorld world, PlayerEntity player) {
@@ -34,7 +39,7 @@ public class TntStaffItem extends StaffItem{
 
         float yaw = player.getYaw();
         float pitch = player.getPitch();
-//        MathHelper.sin((yaw / 180 + 1) * (float) Math.PI)
+        //        MathHelper.sin((yaw / 180 + 1) * (float) Math.PI)
         float elevation = MathHelper.sin((pitch / 180) * (float) Math.PI);
         Vec3d velocity = new Vec3d(Math.sqrt(1 - elevation * elevation) * MathHelper.sin((yaw / 180 + 1) * (float) Math.PI),
                 -elevation,
