@@ -55,9 +55,11 @@ public class StaffMod implements ModInitializer {
 						}
 					}
 				}
-				if (player.getMainHandStack().isOf(ModItems.BELL_STAFF)) {
+				if (player.getMainHandStack().isOf(ModItems.BELL_STAFF)) {	
 					if (entity instanceof MobEntity mob) {
-						BellStaffItem.onHit(mob, world, player);
+						if (ManaSupplier.manaCheck(player, BellStaffItem.mana)) {
+							BellStaffItem.onHit(mob, world, player);
+						}
 					}
 				}
 			}
