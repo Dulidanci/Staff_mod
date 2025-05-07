@@ -16,17 +16,19 @@ public class HudRenderer {
         HudRenderCallback.EVENT.register((DrawContext context, float tickDelta) -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.player != null) {
-                int x = client.getWindow().getScaledWidth() / 2 - 60;
-                int y = client.getWindow().getScaledHeight() - 57;
+                if (!client.player.isCreative() && !client.player.isSpectator()) {
+                    int x = 10;
+                    int y = client.getWindow().getScaledHeight() - 30;
 
-                RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-                RenderSystem.setShaderTexture(0, ICON_TEXTURE);
+                    RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+                    RenderSystem.setShaderTexture(0, ICON_TEXTURE);
 
-                context.drawTexture(ICON_TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
+                    context.drawTexture(ICON_TEXTURE, x, y, 0, 0, 16, 16, 16, 16);
 
-                Pair<Integer, Integer> playerMana = ManaSupplier.tickingPlayerStats(client.player);
-                String text = "Mana points: " + playerMana.getA() + " / " + playerMana.getB();
-                context.drawText(client.textRenderer, text, x + 20, y + 4, 0xFFFFFF, true);
+                    Pair<Integer, Integer> playerMana = ManaSupplier.tickingPlayerStats(client.player);
+                    String text = "Mana points: " + playerMana.getA() + " / " + playerMana.getB();
+                    context.drawText(client.textRenderer, text, x + 20, y + 4, 0xFFFFFF, true);
+                }
             }
         });
     }

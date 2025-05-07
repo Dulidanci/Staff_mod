@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class AnvilStaffItem extends StaffItem {
-    public static final int mana = 4;
+    public static final int mana = 8;
 
     public AnvilStaffItem(Settings settings) {
         super(settings);
