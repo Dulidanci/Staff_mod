@@ -1,6 +1,5 @@
 package net.dulidanci.staffmod.block.entity;
 
-import net.dulidanci.staffmod.StaffMod;
 import net.dulidanci.staffmod.block.ModBlockEntities;
 import net.dulidanci.staffmod.item.ModItems;
 import net.dulidanci.staffmod.item.custom.AbstractStaffItem;

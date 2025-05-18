@@ -3,7 +3,6 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;

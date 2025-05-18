@@ -38,8 +38,11 @@ public class StaffUpgradeStationBlockEntityRenderer implements BlockEntityRender
     }
 
     private int getLightLevel(World world, BlockPos pos) {
-        int bLight = world.getLightLevel(LightType.BLOCK, pos);
-        int sLight = world.getLightLevel(LightType.SKY, pos);
-        return LightmapTextureManager.pack(bLight, sLight);
+        if (world != null) {
+            int bLight = world.getLightLevel(LightType.BLOCK, pos);
+            int sLight = world.getLightLevel(LightType.SKY, pos);
+            return LightmapTextureManager.pack(bLight, sLight);
+        }
+        return 0;
     }
 }

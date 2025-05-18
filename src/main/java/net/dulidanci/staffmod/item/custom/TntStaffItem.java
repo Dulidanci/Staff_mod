@@ -1,7 +1,6 @@
 package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;

@@ -3,7 +3,6 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.block.ModBlocks;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
-import net.minecraft.block.Block;
 import net.minecraft.block.LightBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
