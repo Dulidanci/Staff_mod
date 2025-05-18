@@ -15,6 +15,7 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.BLUEPRINT_PLANKS);
 
+        blockStateModelGenerator.registerSimpleState(ModBlocks.STAFF_UPGRADE_STATION);
     }
 
     @Override

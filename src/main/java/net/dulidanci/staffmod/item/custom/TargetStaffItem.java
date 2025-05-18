@@ -3,6 +3,7 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -22,7 +23,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class TargetStaffItem extends StaffItem{
+public class TargetStaffItem extends EmptyStaffItem {
     public static final int mana = 2;
 
     public TargetStaffItem(Settings settings) {

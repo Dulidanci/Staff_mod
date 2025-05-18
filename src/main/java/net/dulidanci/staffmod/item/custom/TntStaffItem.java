@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,8 +14,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class TntStaffItem extends StaffItem{
-    public int mana = 1;
+public class TntStaffItem extends EmptyStaffItem {
+    public static final int mana = 1;
 
     public TntStaffItem(Settings settings) {
         super(settings);

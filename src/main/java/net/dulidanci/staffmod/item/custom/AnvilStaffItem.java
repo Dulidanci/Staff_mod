@@ -3,6 +3,7 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -11,7 +12,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class AnvilStaffItem extends StaffItem {
+public class AnvilStaffItem extends EmptyStaffItem {
     public static final int mana = 8;
 
     public AnvilStaffItem(Settings settings) {

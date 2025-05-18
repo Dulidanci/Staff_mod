@@ -15,13 +15,13 @@ public class ModItemGroups {
     public static final ItemGroup STAFF_GROUP = Registry.register(Registries.ITEM_GROUP,
             new Identifier(StaffMod.MOD_ID, "staff"),
             FabricItemGroup.builder().displayName(Text.translatable("itemgroup.staff"))
-                   .icon(() -> new ItemStack(ModItems.REGULAR_STAFF)).entries((displayContext, entries) -> {
-                       entries.add(ModItems.REGULAR_STAFF);
+                   .icon(() -> new ItemStack(ModItems.EMPTY_STAFF)).entries((displayContext, entries) -> {
+                       entries.add(ModItems.EMPTY_STAFF);
                        entries.add(ModItems.NETHERRACK_STAFF);
                        entries.add(ModItems.ENDSTONE_STAFF);
                        entries.add(ModItems.TNT_STAFF);
                        entries.add(ModItems.ANVIL_STAFF);
-                       entries.add(ModItems.MAGMA_STAFF);
+                       entries.add(ModItems.MAGMA_BLOCK_STAFF);
 
                        entries.add(ModItems.OAK_PLANKS_STAFF);
                        entries.add(ModItems.SPRUCE_PLANKS_STAFF);
@@ -44,6 +44,7 @@ public class ModItemGroups {
 
                        entries.add(ModBlocks.BLUEPRINT_PLANKS);
                        entries.add(ModBlocks.FADING_LIGHT_BLOCK);
+                       entries.add(ModBlocks.STAFF_UPGRADE_STATION);
 
                    }).build());
 

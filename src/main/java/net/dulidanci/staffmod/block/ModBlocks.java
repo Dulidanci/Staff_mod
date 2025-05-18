@@ -3,6 +3,7 @@ package net.dulidanci.staffmod.block;
 import net.dulidanci.staffmod.StaffMod;
 import net.dulidanci.staffmod.block.custom.BlueprintPlanksBlock;
 import net.dulidanci.staffmod.block.custom.FadingLightBlock;
+import net.dulidanci.staffmod.block.custom.StaffUpgradeStationBlock;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
@@ -19,6 +20,9 @@ public class ModBlocks {
 
     public static final Block FADING_LIGHT_BLOCK = registerBlock("fading_light_block",
             new FadingLightBlock(FabricBlockSettings.copyOf(Blocks.LIGHT)));
+
+    public static final Block STAFF_UPGRADE_STATION = registerBlock("staff_upgrade_station",
+            new StaffUpgradeStationBlock(FabricBlockSettings.copyOf(Blocks.STONECUTTER).nonOpaque().requiresTool()));
 
 
 

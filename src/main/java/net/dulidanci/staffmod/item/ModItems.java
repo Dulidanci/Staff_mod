@@ -10,9 +10,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
-
-    public static final Item REGULAR_STAFF = registerItem("regular_staff",
-            new StaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item EMPTY_STAFF = registerItem("empty_staff",
+            new EmptyStaffItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item NETHERRACK_STAFF = registerItem("netherrack_staff",
             new NetherrackStaffItem(new FabricItemSettings().maxCount(1)));
@@ -26,8 +25,8 @@ public class ModItems {
     public static final Item ANVIL_STAFF = registerItem("anvil_staff",
             new AnvilStaffItem(new FabricItemSettings().maxCount(1)));
 
-    public static final Item MAGMA_STAFF = registerItem("magma_staff",
-            new MagmaStaffItem(new FabricItemSettings().maxCount(1)));
+    public static final Item MAGMA_BLOCK_STAFF = registerItem("magma_block_staff",
+            new MagmaBlockStaffItem(new FabricItemSettings().maxCount(1)));
 
     public static final Item ACACIA_PLANKS_STAFF = registerItem("acacia_planks_staff",
             new PlanksStaffItem(new FabricItemSettings().maxCount(1), Blocks.ACACIA_PLANKS));

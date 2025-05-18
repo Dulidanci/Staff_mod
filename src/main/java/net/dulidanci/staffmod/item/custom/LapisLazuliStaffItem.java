@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 
 import java.util.ArrayList;
 
-public class LapisLazuliStaffItem extends StaffItem{
+public class LapisLazuliStaffItem extends EmptyStaffItem {
     public static final int mana = 3;
     public static final int manaOnHit = 2;
 

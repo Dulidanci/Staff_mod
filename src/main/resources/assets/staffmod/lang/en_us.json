@@ -1,10 +1,10 @@
 {
-  "item.staffmod.regular_staff": "Regular Staff",
+  "item.staffmod.empty_staff": "Empty Staff",
   "item.staffmod.netherrack_staff": "Netherrack Staff",
   "item.staffmod.endstone_staff": "Endstone Staff",
   "item.staffmod.tnt_staff": "TNT Staff",
   "item.staffmod.anvil_staff": "Anvil Staff",
-  "item.staffmod.magma_staff": "Magma Staff",
+  "item.staffmod.magma_block_staff": "Magma Block Staff",
 
   "item.staffmod.oak_planks_staff": "Oak Planks Staff",
   "item.staffmod.spruce_planks_staff": "Spruce Planks Staff",
@@ -27,6 +27,9 @@
 
   "block.staffmod.blueprint_planks": "Blueprint Planks",
   "block.staffmod.fading_light_block": "Fading Light Block",
+  "block.staffmod.staff_upgrade_station": "Staff Upgrade Station",
+
+  "gui.staffmod.staff_upgrade_station": "Staff Upgrade Station",
 
   "enchantment.staffmod.magical": "Magical",
 

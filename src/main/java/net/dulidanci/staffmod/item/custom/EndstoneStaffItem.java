@@ -2,6 +2,7 @@ package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -11,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EndstoneStaffItem extends StaffItem{
+public class EndstoneStaffItem extends EmptyStaffItem {
     public static final int mana = 4;
 
     public EndstoneStaffItem(Settings settings) {

@@ -2,6 +2,7 @@ package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
@@ -11,10 +12,10 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class MagmaStaffItem extends StaffItem{
+public class MagmaBlockStaffItem extends EmptyStaffItem {
     public static final int mana = 3;
 
-    public MagmaStaffItem(Settings settings) {
+    public MagmaBlockStaffItem(Settings settings) {
         super(settings);
     }
 

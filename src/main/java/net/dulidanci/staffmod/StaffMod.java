@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod;
 
 import net.dulidanci.staffmod.block.ModBlocks;
+import net.dulidanci.staffmod.block.ModBlockEntities;
 import net.dulidanci.staffmod.enchantments.ModEnchantments;
 import net.dulidanci.staffmod.entity.ModEntities;
 import net.dulidanci.staffmod.entity.custom.TrackedAnvilEntity;
@@ -8,6 +9,7 @@ import net.dulidanci.staffmod.item.ModItemGroups;
 import net.dulidanci.staffmod.item.ModItems;
 import net.dulidanci.staffmod.item.custom.BellStaffItem;
 import net.dulidanci.staffmod.item.custom.LapisLazuliStaffItem;
+import net.dulidanci.staffmod.screen.ModScreenHandlers;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.PlayerItemTracker;
@@ -30,11 +32,18 @@ public class StaffMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		StaffMod.LOGGER.info("Initializing " + StaffMod.MOD_ID + " 'main' entrypoint!");
+
 		ModItems.registerModItems();
-		ModBlocks.registerModBlocks();
-		ModEntities.registerModEntities();
 		ModItemGroups.registerItemGroups();
+
+		ModBlocks.registerModBlocks();
+		ModBlockEntities.registeringBlockEntities();
+
+		ModEntities.registerModEntities();
+
 		ModEnchantments.registerModEnchantments();
+
+		ModScreenHandlers.register();
 
 		PlayerItemTracker.register();
 		EntityTimerManager.register();
@@ -45,7 +54,7 @@ public class StaffMod implements ModInitializer {
 			if (!world.isClient) {
 				TrackedAnvilEntity.setTargetForAnvils(entity);
 
-				if (player.getMainHandStack().isOf(ModItems.MAGMA_STAFF)) {
+				if (player.getMainHandStack().isOf(ModItems.MAGMA_BLOCK_STAFF)) {
 					entity.setOnFireFor(8);
 				}
 				if (player.getMainHandStack().isOf(ModItems.LAPIS_LAZULI_STAFF)) {

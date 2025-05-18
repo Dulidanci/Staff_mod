@@ -2,11 +2,11 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [20, 20],
 	"textures": {
-		"1": "staffmod:item/regular_staff_3d",
+		"1": "staffmod:item/empty_staff_3d",
 		"2": "minecraft:block/beehive_end",
 		"3": "minecraft:block/beehive_front_honey",
 		"4": "minecraft:block/beehive_side",
-		"particle": "staffmod:item/regular_staff_3d"
+		"particle": "staffmod:item/empty_staff_3d"
 	},
 	"elements": [
 		{

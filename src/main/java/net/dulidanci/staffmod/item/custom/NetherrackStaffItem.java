@@ -1,13 +1,14 @@
 package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class NetherrackStaffItem extends StaffItem {
+public class NetherrackStaffItem extends EmptyStaffItem {
     public static final int mana = 0;
 
     public NetherrackStaffItem(Settings settings) {

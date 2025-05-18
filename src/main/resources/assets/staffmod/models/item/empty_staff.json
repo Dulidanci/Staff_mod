@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "staffmod:item/regular_staff"
+    "layer0": "staffmod:item/empty_staff"
   }
 }

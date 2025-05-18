@@ -1,7 +1,7 @@
 package net.dulidanci.staffmod.util;
 
 import net.dulidanci.staffmod.StaffMod;
-import net.dulidanci.staffmod.item.custom.MagmaStaffItem;
+import net.dulidanci.staffmod.item.custom.MagmaBlockStaffItem;
 import net.dulidanci.staffmod.item.custom.TargetStaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.Entity;
@@ -65,7 +65,7 @@ public class EntityTimerManager {
      * </p>
      * @value 1 - Removing fireballs
      * <p>
-     *     Called from MagmaStaffItem
+     *     Called from MagmaBlockStaffItem
      * </p>
      * @value 2 - Remove glowing mob from team
      * <p>
@@ -79,7 +79,7 @@ public class EntityTimerManager {
             }
         } else if (type == 1) {
             if (entity instanceof FireballEntity fireball) {
-                MagmaStaffItem.removeFireball(fireball);
+                MagmaBlockStaffItem.removeFireball(fireball);
             }
         } else if (type == 2) {
             if (entity instanceof LivingEntity living) {

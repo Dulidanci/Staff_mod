@@ -3,6 +3,7 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.block.ModBlocks;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.ModTags;
+import net.minecraft.block.Block;
 import net.minecraft.block.LightBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class GlowstoneStaffItem extends StaffItem{
+public class GlowstoneStaffItem extends EmptyStaffItem {
     public static final int mana = 2;
 
     public GlowstoneStaffItem(Settings settings) {
@@ -40,5 +41,4 @@ public class GlowstoneStaffItem extends StaffItem{
         }
         return TypedActionResult.fail(player.getStackInHand(hand));
     }
-
 }

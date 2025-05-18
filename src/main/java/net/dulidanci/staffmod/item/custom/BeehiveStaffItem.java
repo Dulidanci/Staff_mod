@@ -3,13 +3,14 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.entity.ModEntities;
 import net.dulidanci.staffmod.entity.custom.LoyalBeeEntity;
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
-public class BeehiveStaffItem extends StaffItem{
+public class BeehiveStaffItem extends EmptyStaffItem {
     public static final int mana = 1;
 
     public BeehiveStaffItem(Settings settings) {

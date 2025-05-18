@@ -13,6 +13,7 @@ public class HudRenderer {
     private static final Identifier ICON_TEXTURE = new Identifier(StaffMod.MOD_ID, "textures/gui/mana_point.png");
 
     public static void register() {
+        StaffMod.LOGGER.info("Registering HudRenderer for " + StaffMod.MOD_ID);
         HudRenderCallback.EVENT.register((DrawContext context, float tickDelta) -> {
             MinecraftClient client = MinecraftClient.getInstance();
             if (client.player != null) {

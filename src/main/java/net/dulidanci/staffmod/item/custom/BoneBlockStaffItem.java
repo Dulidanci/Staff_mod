@@ -1,6 +1,7 @@
 package net.dulidanci.staffmod.item.custom;
 
 import net.dulidanci.staffmod.util.ManaSupplier;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Fertilizable;
 import net.minecraft.item.ItemUsageContext;
@@ -11,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-public class BoneBlockStaffItem extends StaffItem{
+public class BoneBlockStaffItem extends EmptyStaffItem {
     public static final int mana = 1;
 
     public BoneBlockStaffItem(Settings settings) {

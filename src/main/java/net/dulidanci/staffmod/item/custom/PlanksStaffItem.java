@@ -20,13 +20,13 @@ import net.minecraft.world.World;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PlanksStaffItem extends StaffItem{
+public class PlanksStaffItem extends EmptyStaffItem {
     public static final int mana = 2;
     private static BlockPos previousPos;
     private static Direction previousDir;
     private static Direction previousMode;
     private static final Set<BlockPos> previousPlaces = new HashSet<>();
-    private final Block blockType;
+    public final Block blockType;
 
     public PlanksStaffItem(Settings settings, Block block) {
         super(settings);

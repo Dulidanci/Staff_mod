@@ -3,13 +3,14 @@ package net.dulidanci.staffmod.item.custom;
 import net.dulidanci.staffmod.util.EntityTimerManager;
 import net.dulidanci.staffmod.util.ManaSupplier;
 import net.dulidanci.staffmod.util.MobUtilities;
+import net.minecraft.block.Block;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 
-public class BellStaffItem extends StaffItem{
+public class BellStaffItem extends EmptyStaffItem {
     public static final int mana = 5;
 
     public BellStaffItem(Settings settings) {

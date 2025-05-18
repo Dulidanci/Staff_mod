@@ -16,11 +16,11 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
     @ModifyVariable(method = "renderItem", at = @At(value = "HEAD"), argsOnly = true)
-    public BakedModel useRegularStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
-                                           MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (stack.isOf(ModItems.REGULAR_STAFF) && renderMode != ModelTransformationMode.GUI) {
+    public BakedModel useEmptyStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
+                                         MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if (stack.isOf(ModItems.EMPTY_STAFF) && renderMode != ModelTransformationMode.GUI) {
             return ((ItemRendererAccessor) this).mccourse$getModels().getModelManager().getModel(new ModelIdentifier(
-                    StaffMod.MOD_ID, "regular_staff_3d", "inventory"));
+                    StaffMod.MOD_ID, "empty_staff_3d", "inventory"));
         }
         return value;
     }
@@ -66,11 +66,11 @@ public abstract class ItemRendererMixin {
     }
 
     @ModifyVariable(method = "renderItem", at = @At(value = "HEAD"), argsOnly = true)
-    public BakedModel useMagmaStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
+    public BakedModel useMagmaBlockStaffModel(BakedModel value, ItemStack stack, ModelTransformationMode renderMode, boolean leftHanded,
                                               MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
-        if (stack.isOf(ModItems.MAGMA_STAFF) && renderMode != ModelTransformationMode.GUI) {
+        if (stack.isOf(ModItems.MAGMA_BLOCK_STAFF) && renderMode != ModelTransformationMode.GUI) {
             return ((ItemRendererAccessor) this).mccourse$getModels().getModelManager().getModel(new ModelIdentifier(
-                    StaffMod.MOD_ID, "magma_staff_3d", "inventory"));
+                    StaffMod.MOD_ID, "magma_block_staff_3d", "inventory"));
         }
         return value;
     }
