@@ -7,6 +7,7 @@ import net.dulidanci.staffmod.item.custom.PlanksStaffItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.item.Item;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,61 +28,70 @@ public class PlayerItemTracker {
             ModItems.WARPED_PLANKS_STAFF,       // 10
             ModItems.LAPIS_LAZULI_STAFF         // 11
     };
-    private static final Map<UUID, Boolean[]> table = new HashMap<>();
+    private static final Map<UUID, Pair<Item, Item>> heldItems = new HashMap<>();
 
     public static void register() {
         StaffMod.LOGGER.info("Registering PlayerItemTracker for " + StaffMod.MOD_ID);
         ServerTickEvents.END_SERVER_TICK.register(minecraftServer -> {
             for (ServerPlayerEntity player : minecraftServer.getPlayerManager().getPlayerList()) {
-                table.putIfAbsent(player.getUuid(), initializeBooleanArray());
-                Boolean[] areStaffsHeld = table.get(player.getUuid());
-                for (int i = 0; i < ITEMS_TO_TRACK.length; i++) {
-                    Item currentItem = ITEMS_TO_TRACK[i];
-                    if (isPlayerHoldingItem(player, currentItem) && areStaffsHeld[i]) {
-                        whileHoldingItem(player, i);
-                    } else if (isPlayerHoldingItem(player, currentItem) && !areStaffsHeld[i]) {
-                        onItemEquipped(player, i);
-                        areStaffsHeld[i] = true;
-                    } else if (!isPlayerHoldingItem(player, currentItem) && areStaffsHeld[i]) {
-                        onItemRemoved(player, i);
-                        areStaffsHeld[i] = false;
-                    }
+                heldItems.putIfAbsent(player.getUuid(), new Pair<>(player.getMainHandStack().getItem(), player.getOffHandStack().getItem()));
+                Pair<Item, Item> previouslyHeld = heldItems.get(player.getUuid());
+                Pair<Item, Item> playerHands = new Pair<>(player.getMainHandStack().getItem(), player.getOffHandStack().getItem());
+
+                if (isCheckedItem(playerHands.getLeft()) >= 0 && previouslyHeld.getLeft() != playerHands.getLeft()) {
+                    onItemEquipped(player, playerHands.getLeft());
                 }
+                if (isCheckedItem(previouslyHeld.getLeft()) >= 0 && previouslyHeld.getLeft() == playerHands.getLeft()) {
+                    whileHoldingItem(player, playerHands.getLeft());
+                }
+                if (isCheckedItem(previouslyHeld.getLeft()) >= 0 && previouslyHeld.getLeft() != playerHands.getLeft()) {
+                    onItemRemoved(player, previouslyHeld.getLeft());
+                }
+
+                if (isCheckedItem(playerHands.getRight()) >= 0 && previouslyHeld.getRight() != playerHands.getRight()) {
+                    onItemEquipped(player, playerHands.getRight());
+                }
+                if (isCheckedItem(previouslyHeld.getRight()) >= 0 && previouslyHeld.getRight() == playerHands.getRight()) {
+                    whileHoldingItem(player, playerHands.getRight());
+                }
+                if (isCheckedItem(previouslyHeld.getRight()) >= 0 && previouslyHeld.getRight() != playerHands.getRight()) {
+                    onItemRemoved(player, previouslyHeld.getRight());
+                }
+
+                heldItems.put(player.getUuid(), playerHands);
             }
         });
     }
 
-    private static Boolean[] initializeBooleanArray() {
-        Boolean[] array = new Boolean[ITEMS_TO_TRACK.length];
+    private static int isCheckedItem(Item item) {
         for (int i = 0; i < ITEMS_TO_TRACK.length; i++) {
-            array[i] = false;
+            Item staff = ITEMS_TO_TRACK[i];
+            if (item == staff) {
+                return i;
+            }
         }
-        return array;
+        return -1;
     }
 
-    private static boolean isPlayerHoldingItem(ServerPlayerEntity player, Item item) {
-        return player.getMainHandStack().getItem() == item || player.getOffHandStack().getItem() == item;
-    }
-
-    private static void onItemEquipped(ServerPlayerEntity player, int whichStaff) {
-        if (whichStaff < 11) {
-            PlanksStaffItem.generatePreview(player);
+    private static void onItemEquipped(ServerPlayerEntity player, Item item) {
+        if (item instanceof PlanksStaffItem planksStaffItem) {
+            planksStaffItem.generatePreview(player);
         } else {
             LapisLazuliStaffItem.levitating(player);
         }
     }
 
-    private static void whileHoldingItem(ServerPlayerEntity player, int whichStaff) {
-        if (whichStaff < 11) {
-            PlanksStaffItem.generatePreview(player);
+    private static void whileHoldingItem(ServerPlayerEntity player, Item item) {
+        if (item instanceof PlanksStaffItem planksStaffItem) {
+            planksStaffItem.generatePreview(player);
         } else {
             LapisLazuliStaffItem.levitating(player);
         }
     }
 
-    private static void onItemRemoved(ServerPlayerEntity player, int whichStaff) {
-        if (whichStaff < 11) {
-            PlanksStaffItem.removePreview(player);
+    private static void onItemRemoved(ServerPlayerEntity player, Item item) {
+        if (item instanceof PlanksStaffItem planksStaffItem) {
+            planksStaffItem.removePreview(player);
         }
     }
 }

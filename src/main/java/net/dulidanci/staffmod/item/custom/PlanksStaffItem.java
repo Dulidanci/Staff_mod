@@ -22,10 +22,10 @@ import java.util.Set;
 
 public class PlanksStaffItem extends EmptyStaffItem {
     public static final int mana = 2;
-    private static BlockPos previousPos;
-    private static Direction previousDir;
-    private static Direction previousMode;
-    private static final Set<BlockPos> previousPlaces = new HashSet<>();
+    private BlockPos previousPos;
+    private Direction previousDir;
+    private Direction previousMode;
+    private final Set<BlockPos> previousPlaces = new HashSet<>();
     public final Block blockType;
 
     public PlanksStaffItem(Settings settings, Block block) {
@@ -33,7 +33,7 @@ public class PlanksStaffItem extends EmptyStaffItem {
         this.blockType = block;
     }
 
-    public static void generatePreview(PlayerEntity player) {
+    public void generatePreview(PlayerEntity player) {
         World world = player.getWorld();
         if (!world.isClient) {
             BlockPos newPos = player.getBlockPos();
@@ -119,13 +119,13 @@ public class PlanksStaffItem extends EmptyStaffItem {
         }
     }
 
-    private static Direction getMode(float pitch) {
+    private Direction getMode(float pitch) {
         if (pitch > 30) return Direction.DOWN;
         if (pitch >= -30) return Direction.NORTH;
         return Direction.UP;
     }
 
-    public static void removePreview(PlayerEntity player) {
+    public void removePreview(PlayerEntity player) {
         World world = player.getWorld();
         for (BlockPos setToDefault : previousPlaces) {
             world.setBlockState(setToDefault, Blocks.AIR.getDefaultState());
@@ -142,9 +142,9 @@ public class PlanksStaffItem extends EmptyStaffItem {
             return TypedActionResult.pass(player.getStackInHand(hand));
         }
 
-        if (ManaSupplier.manaCheck(player, mana)) {
-            int blocksNeeded = previousPlaces.size();
-            if (hasEnoughItems(player, this.blockType.asItem(), blocksNeeded)) {
+        int blocksNeeded = previousPlaces.size();
+        if (hasEnoughItems(player, this.blockType.asItem(), blocksNeeded)) {
+            if (ManaSupplier.manaCheck(player, mana)) {
                 for (BlockPos setToPlanks : previousPlaces) {
                     world.setBlockState(setToPlanks, this.blockType.getDefaultState());
                 }
@@ -152,7 +152,8 @@ public class PlanksStaffItem extends EmptyStaffItem {
                 removeItems(player, this.blockType.asItem(), blocksNeeded);
                 return TypedActionResult.success(player.getStackInHand(hand));
             }
-            player.sendMessage(Text.literal("Not enough planks to build!"));
+        } else {
+            player.sendMessage(Text.translatable("error.planks_staff_item.not_enough_planks"));
         }
         return TypedActionResult.fail(player.getStackInHand(hand));
     }
